@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent menu = new Intent(getBaseContext(), login.class);
                 startActivity(menu);
             }
-        }, 3000);
+        }, 5000);
 
 
     }
