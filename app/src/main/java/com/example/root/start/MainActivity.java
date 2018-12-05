@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 // TODO Auto-generated method stub
                 finish();
-                Intent menu = new Intent(getBaseContext(), login.class);
+                Intent menu = new Intent(getBaseContext(), step1.class);
                 startActivity(menu);
             }
         }, 5000);

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "776064311170",
+    "firebase_url": "https://gps-linux.firebaseio.com",
+    "project_id": "gps-linux",
+    "storage_bucket": "gps-linux.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776064311170:android:edcaefd618eee2e3",
+        "android_client_info": {
+          "package_name": "com.example.root.start"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776064311170-5akfs2v1u8b8cuc2ku240a92h65a8nk7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBvIORpm-3mMhhsSPl8JmMnY8hrJ9g99Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
