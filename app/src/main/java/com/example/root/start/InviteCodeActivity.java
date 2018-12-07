@@ -74,9 +74,9 @@ public class InviteCodeActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             //insert value in real database
 
-                            CreateUser createUser = new CreateUser(name,email,password,code,"false","na","na","na");
                             user = auth.getCurrentUser();
                             userId = user.getUid();
+                            CreateUser createUser = new CreateUser(name,email,password,code,"false","na","na","na",userId);
                             reference.child(userId).setValue(createUser)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -149,8 +149,9 @@ public class InviteCodeActivity extends AppCompatActivity {
 
 
 
+
     }
-    
+
 
 
 

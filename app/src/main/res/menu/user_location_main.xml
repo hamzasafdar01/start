@@ -6,4 +6,16 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sharingOn"
+        android:orderInCategory="100"
+        android:title="Share Location"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sharingOff"
+        android:orderInCategory="100"
+        android:title="Stop Sharing"
+        app:showAsAction="never" />
 </menu>

@@ -1,6 +1,7 @@
 package com.example.root.start;
 
 import android.Manifest;
+import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -52,6 +53,7 @@ public class UserLocationMainActivity extends AppCompatActivity
     GoogleMap mMap;
     LatLng latLng;
     DatabaseReference databaseReference;
+    service updateInFirebase = new service();
 
     FirebaseUser user;
     String current_user_name,current_user_email,current_user_imagerUrl;
@@ -113,19 +115,6 @@ public class UserLocationMainActivity extends AppCompatActivity
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     @Override
@@ -152,6 +141,22 @@ public class UserLocationMainActivity extends AppCompatActivity
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -167,8 +172,17 @@ public class UserLocationMainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.sharingOn)
+        {
+            Intent myintent = new Intent(UserLocationMainActivity.this,LocationShareService.class);
+            startService(myintent);
+
+        }
+        else if (id == R.id.sharingOff)
+        {
+
+            Intent myintent = new Intent(UserLocationMainActivity.this,LocationShareService.class);
+            stopService(myintent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -180,15 +194,21 @@ public class UserLocationMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_joinCircle) {
-            // Handle the camera action
-        } else if (id == R.id.nav_myCircle) {
+        if (id == R.id.nav_joinCircle)
+        {
+            Intent myintent = new Intent(UserLocationMainActivity.this,JoinCircleActivity.class);
+            startActivity(myintent);
+        }
+        else if (id == R.id.nav_myCircle) {
 
-        } else if (id == R.id.nav_joinedCircle) {
+        }
+        else if (id == R.id.nav_joinedCircle) {
 
-        } else if (id == R.id.nav_inviteMembers) {
+        }
+        else if (id == R.id.nav_inviteMembers) {
 
-        } else if (id == R.id.nav_shareLocation) {
+        }
+        else if (id == R.id.nav_shareLocation) {
             if(latLng!=null) {
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
@@ -229,7 +249,6 @@ public class UserLocationMainActivity extends AppCompatActivity
         LocationServices.FusedLocationApi.requestLocationUpdates(client, request, this);
         //after this we receive our location in onLocationChanged method
 
-
     }
 
 
@@ -247,6 +266,7 @@ public class UserLocationMainActivity extends AppCompatActivity
     @Override
     public void onLocationChanged(Location location)
     {
+
         if (location==null){
             Toast.makeText(getApplicationContext(),"Could not get your Location",Toast.LENGTH_SHORT).show();
         }
@@ -254,6 +274,7 @@ public class UserLocationMainActivity extends AppCompatActivity
         {
             latLng = new LatLng(location.getLatitude(),location.getLongitude());
 
+           // updateInFirebase.location(location.getLatitude(),location.getLongitude());
             MarkerOptions options = new MarkerOptions();
             options.position(latLng);
             options.title("Current Location");

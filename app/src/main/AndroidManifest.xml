@@ -50,7 +50,20 @@
             android:name=".UserLocationMainActivity"
             android:label="@string/title_activity_user_location_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".JoinCircleActivity"></activity>
+        <activity android:name=".JoinCircleActivity" />
+
+        <service
+            android:name=".LocationShareService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name="com.Service"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
