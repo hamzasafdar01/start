@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,8 +34,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +50,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+
 public class UserLocationMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -51,23 +59,33 @@ public class UserLocationMainActivity extends AppCompatActivity
     GoogleApiClient client;
     LocationRequest request;
     GoogleMap mMap;
-    LatLng latLng;
+    LatLng latLng,friendLatlng;
     DatabaseReference databaseReference;
-    service updateInFirebase = new service();
+
 
     FirebaseUser user;
-    String current_user_name,current_user_email,current_user_imagerUrl;
+    String current_user_name,current_user_email,current_user_imagerUrl,inviteCode;
+    Marker marker;
     TextView c_name,c_email;
     ImageView c_image;
+    FloatingActionButton fab;
+    String userid,friendLat,friendLng,friendName,friendImage;
+    Location myLocation,friendLocation;
+    boolean partnerNotPresentMessage = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_location_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        fab = findViewById(R.id.fab);
         setSupportActionBar(toolbar);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
+        Intent myintent = getIntent();
+        if(myintent!=null){
+            userid = myintent.getStringExtra("userid");
+            Toast.makeText(getApplicationContext(),userid,Toast.LENGTH_LONG).show();
+        }
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -98,6 +116,7 @@ public class UserLocationMainActivity extends AppCompatActivity
                     current_user_name = dataSnapshot.child(user.getUid()).child("name").getValue(String.class);
                     current_user_email = dataSnapshot.child(user.getUid()).child("email").getValue(String.class);
                     current_user_imagerUrl = dataSnapshot.child(user.getUid()).child("imageUrl").getValue(String.class);
+                    inviteCode = dataSnapshot.child(user.getUid()).child("code").getValue(String.class);
                     c_name.setText(current_user_name);
                     c_email.setText(current_user_email);
                 Picasso.get().load(current_user_imagerUrl).into(c_image);
@@ -111,6 +130,13 @@ public class UserLocationMainActivity extends AppCompatActivity
         });
 
 
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latLng.latitude,latLng.longitude),12.0f));
+            }
+        });
 
 
 
@@ -130,6 +156,8 @@ public class UserLocationMainActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+
 
         client = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -140,9 +168,6 @@ public class UserLocationMainActivity extends AppCompatActivity
         client.connect();
 
     }
-
-
-
 
 
 
@@ -174,13 +199,15 @@ public class UserLocationMainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.sharingOn)
         {
+            databaseReference.child(user.getUid()).child("issharing").setValue("true");
             Intent myintent = new Intent(UserLocationMainActivity.this,LocationShareService.class);
+            //startForegroundService(myintent);
             startService(myintent);
 
         }
         else if (id == R.id.sharingOff)
         {
-
+          //  databaseReference.child(user.getUid()).child("issharing").setValue("false");
             Intent myintent = new Intent(UserLocationMainActivity.this,LocationShareService.class);
             stopService(myintent);
         }
@@ -200,12 +227,21 @@ public class UserLocationMainActivity extends AppCompatActivity
             startActivity(myintent);
         }
         else if (id == R.id.nav_myCircle) {
+            Intent myintent = new Intent(UserLocationMainActivity.this,MyCircleActivity.class);
+            startActivity(myintent);
 
         }
         else if (id == R.id.nav_joinedCircle) {
 
         }
         else if (id == R.id.nav_inviteMembers) {
+
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_TEXT, "Hello \n I am "+ current_user_name + "\nJoin My Circle to share location. \n My circle code is\n"+ inviteCode );
+                startActivity(i.createChooser(i, "Invite using: "));
+
+
 
         }
         else if (id == R.id.nav_shareLocation) {
@@ -214,6 +250,10 @@ public class UserLocationMainActivity extends AppCompatActivity
                 i.setType("text/plain");
                 i.putExtra(Intent.EXTRA_TEXT, "My Location is: " + "https://www.google.com/maps/@" + latLng.latitude + "," + latLng.longitude + ",17z");
                 startActivity(i.createChooser(i, "Share using: "));
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"Unable to get Your Location",Toast.LENGTH_SHORT).show();
             }
 
         } else if (id == R.id.signOut) {
@@ -266,21 +306,104 @@ public class UserLocationMainActivity extends AppCompatActivity
     @Override
     public void onLocationChanged(Location location)
     {
+        mMap.clear();
+
 
         if (location==null){
             Toast.makeText(getApplicationContext(),"Could not get your Location",Toast.LENGTH_SHORT).show();
         }
         else
         {
+            if (marker!=null){
+                marker.remove();
+            }
+            myLocation = location;
             latLng = new LatLng(location.getLatitude(),location.getLongitude());
+           // mMap.setMaxZoomPreference(5);
 
-           // updateInFirebase.location(location.getLatitude(),location.getLongitude());
             MarkerOptions options = new MarkerOptions();
             options.position(latLng);
             options.title("Current Location");
-            mMap.addMarker(options);
+
+            marker = mMap.addMarker(options);
+           // mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),12.0f));
+        }
+
+        if (userid!=null)
+        {
+            showFriendLocation();
         }
 
     }
+
+
+
+    public void showFriendLocation()
+    {
+        friendLocation =new Location("");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(userid).child("issharing").getValue(String.class).equals("true"))
+                {
+                    friendLat = dataSnapshot.child(userid).child("lat").getValue(String.class);
+                    friendLng = dataSnapshot.child(userid).child("lng").getValue(String.class);
+                    friendName = dataSnapshot.child(userid).child("name").getValue(String.class);
+                    friendImage = dataSnapshot.child(userid).child("name").getValue(String.class);
+
+                    //creating location to calculate distace
+                    friendLocation.setLatitude(Double.parseDouble(friendLat));
+                    friendLocation.setLongitude(Double.parseDouble(friendLng));
+
+
+                    friendLatlng = new LatLng(Double.parseDouble(friendLat),Double.parseDouble(friendLng));
+
+                    MarkerOptions options1 = new MarkerOptions();
+                    options1.position(friendLatlng);
+                    options1.title(friendName);
+                    options1.snippet("Distance " + new DecimalFormat("#.#").format((myLocation.distanceTo(friendLocation))/1000) + " KM");
+                    options1.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
+                    marker = mMap.addMarker(options1);
+
+                   // String URL = getURL(latLng,friendLatlng,"driving");
+
+                    partnerNotPresentMessage = false;
+                }
+                else if (partnerNotPresentMessage)
+                {
+                    Toast.makeText(getApplicationContext(),"Your Partner is not sharing Location",Toast.LENGTH_LONG).show();
+                    partnerNotPresentMessage = false;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+    });
+
+    }
+
+
+//
+//    public String getURL(LatLng origin,LatLng dest, String directionMode)
+//    {
+//        //origin of route
+//        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
+//        //Destination of route
+//        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
+//        //Mode
+//        String mode = "mode=" + directionMode;
+//        //building parameters
+//        String parameters = str_origin + "&" + str_dest + "&" + mode;
+//        //output format
+//        String output ="json";
+//        //building url
+//        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&key=" + getString(R.string.google_maps_key);
+//        return url;
+//    }
+
 
 }

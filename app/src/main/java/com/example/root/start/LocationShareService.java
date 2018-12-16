@@ -118,9 +118,13 @@ public class LocationShareService extends Service implements LocationListener, G
 
     public void shareLocation()
     {
-        databaseReference.child(user.getUid()).child("issharing").setValue("true");
-        databaseReference.child(user.getUid()).child("lat").setValue(latLng.latitude);
-        databaseReference.child(user.getUid()).child("lng").setValue(latLng.longitude)
+        Double laat,lnng;
+        laat = latLng.latitude;
+        lnng = latLng.longitude;
+
+//        databaseReference.child(user.getUid()).child("issharing").setValue("true");
+        databaseReference.child(user.getUid()).child("lat").setValue(laat.toString());
+        databaseReference.child(user.getUid()).child("lng").setValue(lnng.toString())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -144,8 +148,7 @@ public class LocationShareService extends Service implements LocationListener, G
                         if (task.isSuccessful())
                         {
                             Toast.makeText(getApplicationContext(),"Location Sharing is now stopped",Toast.LENGTH_SHORT).show();
-                            Intent myintent = new Intent(LocationShareService.this,UserLocationMainActivity.class);
-                            startActivity(myintent);
+
                         }
                         else
                         {

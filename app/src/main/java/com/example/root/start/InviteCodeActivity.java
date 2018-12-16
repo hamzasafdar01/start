@@ -52,9 +52,7 @@ public class InviteCodeActivity extends AppCompatActivity {
             isharing = myintent.getStringExtra("isSharing");
             code = myintent.getStringExtra("code");
             imageUri = myintent.getParcelableExtra("imageUri");
-            if (imageUri!=null){
-                Toast.makeText(getApplicationContext(), "test",Toast.LENGTH_SHORT).show();
-            }
+
 
         }
         t1.setText(code);
@@ -115,8 +113,8 @@ public class InviteCodeActivity extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
 
-//                            String download_image_path = task.getResult().getStorage().getDownloadUrl().toString();
-                            String download_image_path = task.getResult().getStorage().getDownloadUrl().toString();
+
+                           String download_image_path = task.getResult().getStorage().getDownloadUrl().toString();
                             reference.child(user.getUid()).child("imageUrl").setValue(download_image_path)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
