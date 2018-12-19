@@ -73,9 +73,11 @@ public class JoinCircleActivity extends AppCompatActivity {
 
                                 circleReference = FirebaseDatabase.getInstance().getReference().child("Users")
                                         .child(join_user_id).child("CircleMembers");
+                               currentReference = FirebaseDatabase.getInstance().getReference().child("Users")
+                                       .child(user.getUid()).child("Joined Circle");
 
                                 CircleJoin circleJoin1 = new CircleJoin(current_user_id);
-                                CircleJoin circleJoin2 = new CircleJoin(join_user_id);
+                                final CircleJoin circleJoin2 = new CircleJoin(join_user_id);
 
                                 circleReference.child(user.getUid()).setValue(circleJoin1)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -83,6 +85,14 @@ public class JoinCircleActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful())
                                                 {
+                                                    currentReference.child(join_user_id).setValue(circleJoin2)
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    Toast.makeText(getApplicationContext(),"ho gya",Toast.LENGTH_LONG).show();
+                                                                }
+                                                            });
+
                                                     Toast.makeText(getApplicationContext(),"Successfully joined Circle",Toast.LENGTH_SHORT).show();
                                                     Intent myintent = new Intent(JoinCircleActivity.this,UserLocationMainActivity.class);
                                                 }
