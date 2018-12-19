@@ -93,7 +93,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
 
 
 
-    public static class MembersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    public static class MembersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
     {
         TextView name_txt;
         CircleImageView circleImageView;
@@ -115,11 +115,21 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
             name_txt = itemView.findViewById(R.id.item_title);
             circleImageView = itemView.findViewById(R.id.circleImageView);
             status = itemView.findViewById(R.id.status);
+            itemView.setOnLongClickListener(this);
+
+
         }
 
 
         public void setItemClickListener(com.example.root.start.itemClickListener itemClickListener) {
             this.itemClickListener = itemClickListener;
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+
+            Log.d("hamza", "onLongClick: " );
+            return true;
         }
 
         @Override
@@ -130,6 +140,9 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
 
 
         }
+
+
+
 
     }
 

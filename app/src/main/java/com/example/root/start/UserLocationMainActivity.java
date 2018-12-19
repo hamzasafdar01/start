@@ -256,7 +256,15 @@ public class UserLocationMainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(),"Unable to get Your Location",Toast.LENGTH_SHORT).show();
             }
 
-        } else if (id == R.id.signOut) {
+        }
+        else if (id == R.id.nav_editprofile)
+        {
+            Intent myintent = new Intent(UserLocationMainActivity.this,UpdateDetailsActivity.class);
+            startActivity(myintent);
+
+        }
+
+        else if (id == R.id.signOut) {
             FirebaseUser user = auth.getCurrentUser();
             if (user != null) {
                 auth.signOut();

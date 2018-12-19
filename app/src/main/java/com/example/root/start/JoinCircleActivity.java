@@ -70,6 +70,7 @@ public class JoinCircleActivity extends AppCompatActivity {
                                 //may be to write below code outside of the for loop
                                 join_user_id = createUser.userId;
 
+
                                 circleReference = FirebaseDatabase.getInstance().getReference().child("Users")
                                         .child(join_user_id).child("CircleMembers");
 

@@ -6,11 +6,15 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
+
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +35,7 @@ public class InviteCodeActivity extends AppCompatActivity {
     FirebaseUser user;
     DatabaseReference reference;
     StorageReference storageReference;
+    StorageReference sr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,57 +105,148 @@ public class InviteCodeActivity extends AppCompatActivity {
 
 
 
+//
+//    public void uploadImage(){
+//
+//        //save image to firebase database
+//
+//       sr = storageReference.child(userId + ".jpg");
+//        sr.putFile(imageUri)
+//                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+//                        if (task.isSuccessful())
+//                        {
+//
+//                        // String download_image_path = sr.getDownloadUrl().toString();
+////                            String download_image_path = task.getResult().getMetadata().getContentDisposition();
+//                            String download_image_path = task.getResult().getStorage().getDownloadUrl().toString();
+//
+//                            Log.d("hamza", "onComplete: " + download_image_path);
+//
+////                         String download_image_path = task.getResult().getDownloadUrl().toString();
+//                            reference.child(user.getUid()).child("imageUrl").setValue(download_image_path)
+//                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<Void> task) {
+//                                            if (task.isSuccessful()){
+//                                                   dialog.dismiss();
+//                                                sendVarificationEmail();
+////                                                                                                Toast.makeText(getApplicationContext(),"User Registered Successfully",Toast.LENGTH_SHORT).show();
+////                                                                                                finish();
+////                                                                                                Intent myintent = new Intent(InviteCodeActivity.this,UserLocationMainActivity.class);
+////                                                                                                startActivity(myintent);
+//                                            }
+//                                            else
+//                                            {
+//                                                dialog.dismiss();
+//                                                Toast.makeText(getApplicationContext(),"User Didnt Registered Successfully",Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        }
+//                                    });
+//
+//                        }
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(getApplicationContext(),"Didnt able to upload image",Toast.LENGTH_SHORT).show();
+//                sendVarificationEmail();
+//            }
+//        });
+//
+//
+//    }
 
+/////testing///
+
+//
     public void uploadImage(){
 
         //save image to firebase database
 
-        StorageReference sr = storageReference.child(userId + ".jpg");
-        sr.putFile(imageUri)
-                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful())
-                        {
-
-
-                           String download_image_path = task.getResult().getStorage().getDownloadUrl().toString();
-                            reference.child(user.getUid()).child("imageUrl").setValue(download_image_path)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()){
-                                                   dialog.dismiss();
-                                                sendVarificationEmail();
-//                                                                                                Toast.makeText(getApplicationContext(),"User Registered Successfully",Toast.LENGTH_SHORT).show();
-//                                                                                                finish();
-//                                                                                                Intent myintent = new Intent(InviteCodeActivity.this,UserLocationMainActivity.class);
-//                                                                                                startActivity(myintent);
-                                            }
-                                            else
-                                            {
-                                                dialog.dismiss();
-                                                Toast.makeText(getApplicationContext(),"User Didnt Registered Successfully",Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
-
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
+        final StorageReference sr = storageReference.child(userId + ".jpg");
+        //add file on Firebase and got Download Link
+        sr.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),"Didnt able to upload image",Toast.LENGTH_SHORT).show();
-                sendVarificationEmail();
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()){
+                    throw task.getException();
+                }
+                return sr.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()){
+                    Uri downUri = task.getResult();
+                    Log.d("hamza", "onComplete: Url: "+ downUri.toString());
+
+
+
+                    reference.child(user.getUid()).child("imageUrl").setValue(downUri.toString())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if (task.isSuccessful())
+                                    {
+                                        dialog.dismiss();
+                                        sendVarificationEmail();
+
+                                    }
+                                    else
+                                    {
+                                        dialog.dismiss();
+                                        Toast.makeText(getApplicationContext(),"User Diddnt Register Succesully",Toast.LENGTH_LONG).show();
+                                    }
+
+
+
+
+
+                                }
+                            });
+
+
+
+
+
+
+                }
             }
         });
 
 
 
 
+
+
+
+
+
+
+
+//               .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                   @Override
+//                   public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                       String download_image_path =taskSnapshot.getStorage().getDownloadUrl().toString();
+//                       Toast.makeText(getApplicationContext(),download_image_path,Toast.LENGTH_LONG).show();
+//                       Log.d("hamza", "onComplete: " + download_image_path);
+//                   }
+//               });
+
     }
 
 
+
+
+
+
+
+
+
+    ///////////////////////////////////////
 
 
     public void sendVarificationEmail()

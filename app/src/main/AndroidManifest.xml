@@ -67,7 +67,8 @@
             android:exported="true" />
 
         <activity android:name=".MyCircleActivity" />
-        <activity android:name=".ListOnlineActivity"></activity>
+        <activity android:name=".UpdateDetailsActivity" />
+        <activity android:name=".testing"></activity>
     </application>
 
 </manifest>

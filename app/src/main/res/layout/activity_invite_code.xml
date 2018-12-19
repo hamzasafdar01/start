@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/grdnt"
     tools:context=".InviteCodeActivity">
 
 
@@ -12,6 +13,7 @@
         android:layout_width="100dp"
         android:layout_height="36dp"
         android:text="XXXXXX"
+        android:textColor="#d9e5f3"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,6 +26,7 @@
         android:id="@+id/textView2"
         android:layout_width="362dp"
         android:layout_height="47dp"
+        android:textColor="#d9e5f3"
         android:text="Save this invite code your friend will need this if they want to join your circle"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,8 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="registerUser"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="#009a9a"
+        android:textColor="#d9e5f3"
         android:textSize="20dp"
         android:text="REGISTER"
         app:layout_constraintBottom_toBottomOf="parent"
