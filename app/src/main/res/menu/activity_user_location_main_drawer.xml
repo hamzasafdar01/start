@@ -7,36 +7,41 @@
         <item
             android:id="@+id/nav_joinCircle"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Join Circle" />
+            android:title="@string/join_circle" />
         <item
             android:id="@+id/nav_myCircle"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="My Circle" />
+            android:title="@string/my_circle" />
         <item
             android:id="@+id/nav_joinedCircle"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Joined Circle" />
+            android:title="@string/joined_circle" />
 
 
         <item
             android:id="@+id/nav_inviteMembers"
             android:icon="@drawable/ic_menu_share"
-            android:title="Invite Members" />
+            android:title="@string/invite_members" />
 
         <item
             android:id="@+id/nav_shareLocation"
             android:icon="@drawable/ic_menu_share"
-            android:title="Share Location" />
+            android:title="@string/share_location" />
 
         <item
             android:id="@+id/nav_editprofile"
             android:icon="@drawable/ic_menu_share"
-            android:title="My Profile" />
+            android:title="@string/my_profile" />
+
+        <item
+            android:id="@+id/nav_language"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/change_language" />
 
         <item
             android:id="@+id/signOut"
 
-            android:title="Sign Out" />
+            android:title="@string/signout" />
 
 
 

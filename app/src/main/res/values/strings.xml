@@ -1,5 +1,5 @@
 <resources>
-    s
+
     <string name="app_name"> GPS Tracking App</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -14,4 +14,59 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_my__navigation_">Map</string>
     <string name="title_activity_user_location_main">UserLocationMainActivity</string>
+
+
+    <!--Common-->
+    <string name="Next">Next</string>
+    <!---->
+
+
+
+
+    <!--ste1 activity-->
+    <string name="get_started_button">Get Started</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login">Login</string>
+
+    <!---->
+
+    <!--Signup activity-->
+    <string name="Email">Email</string>
+    <!---->
+
+    <!--password activity-->
+    <string name="password">Password</string>
+    <!---->
+
+    <!--name activity-->
+    <string name="enter_your_name">Enter Your Name</string>
+    <!---->
+
+    <!--invite code activity-->
+    <string name="xxxxxx">XXXXXX</string>
+    <string name="save_invite_code">Save this invite code your friend will need this if they want to join your circle</string>
+    <string name="register">Register</string>
+    <!---->
+
+    <!--join circle activity-->
+    <string name="enter_code">Enter Circle Code To Join</string>
+    <string name="submit">Submit</string>
+    <!---->
+
+    <!--login-->
+    <string name="create_account">Create Account? </string>
+    <string name="signup"> Signup</string>
+    <!---->
+    <!--drawer-->
+    <string name="join_circle">Join Circle</string>
+    <string name="joined_circle">Joined Circle</string>
+    <string name="my_circle">My Circle</string>
+    <string name="invite_members">Invite Members</string>
+    <string name="share_location">Share Location</string>
+    <string name="my_profile">My Profile</string>
+    <string name="change_language">Change Language</string>
+    <string name="signout">Sign Out</string>
+
+    <!---->
+
 </resources>

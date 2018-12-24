@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name"> GPS Tracking App</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="getting_start">Get Started</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">ترتیبات</string>
+    <string name="title_activity_my__navigation_">Map</string>
+    <string name="title_activity_user_location_main">UserLocationMainActivity</string>
+
+
+    <!--Common-->
+    <string name="Next">اگلے</string>
+    <!---->
+
+
+
+
+    <!--ste1 activity-->
+    <string name="get_started_button">شروع کرنے کے</string>
+    <string name="already_have_an_account">پہلے سے ہی ایک اکاؤنٹ ہے؟</string>
+    <string name="login">میں لاگ ان کریں</string>
+
+    <!---->
+
+    <!--Signup activity-->
+    <string name="Email">ای میل</string>
+    <!---->
+
+    <!--password activity-->
+    <string name="password">پاس ورڈ</string>
+    <!---->
+
+    <!--name activity-->
+    <string name="enter_your_name">اپنا نام درج کریں</string>
+    <!---->
+
+    <!--invite code activity-->
+    <string name="xxxxxx">XXXXXX</string>
+    <string name="save_invite_code">اس مدعو کو محفوظ کریں کوڈ آپ کے دوست کو اس کی ضرورت ہوگی اگر وہ آپ کے دائرے میں شامل ہونا چاہیں</string>
+    <string name="register">رجسٹر کریں</string>
+    <!---->
+
+    <!--join circle activity-->
+    <string name="enter_code">شامل ہونے کیلئے سرکل کوڈ داخل کریں</string>
+    <string name="submit">Submit</string>
+    <!---->
+
+    <!--login-->
+    <string name="create_account">اکاؤنٹ بنائیں؟ </string>
+    <string name="signup"> سائن اپ</string>
+    <!---->
+
+    <!--drawer-->
+    <string name="join_circle">سرکل میں شمولیت اختیار کریں</string>
+    <string name="joined_circle">سرکل میں شامل</string>
+    <string name="my_circle">میرا سرکل</string>
+    <string name="invite_members">اراکین کو مدعو کریں</string>
+    <string name="share_location">مقام کا اشتراک کریں</string>
+    <string name="my_profile">میری پروفائل</string>
+    <string name="change_language">زبان تبدیل کریں</string>
+    <string name="signout">باہر جائیں</string>
+
+    <!---->
+
+</resources>

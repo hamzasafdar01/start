@@ -68,7 +68,8 @@
 
         <activity android:name=".MyCircleActivity" />
         <activity android:name=".UpdateDetailsActivity" />
-        <activity android:name=".testing"></activity>
+        <activity android:name=".testing" />
+        <activity android:name=".JoinedCircleActivity"></activity>
     </application>
 
 </manifest>

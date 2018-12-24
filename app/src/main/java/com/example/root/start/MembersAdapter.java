@@ -90,11 +90,9 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
 
 
 
-
-
-
-    public static class MembersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
+static class MembersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
     {
+        public
         TextView name_txt;
         CircleImageView circleImageView;
         ImageView status;
