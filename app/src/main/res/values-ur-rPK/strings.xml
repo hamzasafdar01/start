@@ -70,4 +70,17 @@
 
     <!---->
 
+
+    <!--settings activity-->
+    <string name="change_theme">تھیم تبدیل کریں</string>
+    <string name="change_password">پاس ورڈ تبدیل کریں</string>
+    <!---->
+
+    <!--change pasword activity-->
+    <string name="enter_old_password">پرانا پاس ورڈ درج کریں</string>
+    <string name="update">اپ ڈیٹ</string>
+    <!---->
+
+
+
 </resources>

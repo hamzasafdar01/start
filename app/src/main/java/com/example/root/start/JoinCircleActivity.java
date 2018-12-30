@@ -71,25 +71,34 @@ public class JoinCircleActivity extends AppCompatActivity {
                                 join_user_id = createUser.userId;
 
 
-                                circleReference = FirebaseDatabase.getInstance().getReference().child("Users")
-                                        .child(join_user_id).child("CircleMembers");
+//                                circleReference = FirebaseDatabase.getInstance().getReference().child("Users")
+//                                        .child(join_user_id).child("CircleMembers"); //creating node named Circle Members
+                               circleReference = FirebaseDatabase.getInstance().getReference().child("Users")
+                                        .child(user.getUid()).child("CircleMembers"); //creating node named Circle Members
+//
+//                               currentReference = FirebaseDatabase.getInstance().getReference().child("Users")
+//                                       .child(user.getUid()).child("Joined Circle"); //creating node named joined circle
+
+
+
                                currentReference = FirebaseDatabase.getInstance().getReference().child("Users")
-                                       .child(user.getUid()).child("Joined Circle");
+                                       .child(join_user_id).child("Joined Circle"); //creating node named joined circle
 
-                                CircleJoin circleJoin1 = new CircleJoin(current_user_id);
-                                final CircleJoin circleJoin2 = new CircleJoin(join_user_id);
+                               final CircleJoin circleJoin1 = new CircleJoin(current_user_id);
+                                 CircleJoin circleJoin2 = new CircleJoin(join_user_id);
 
-                                circleReference.child(user.getUid()).setValue(circleJoin1)
+                             //   circleReference.child(user.getUid()).setValue(circleJoin1)
+                               circleReference.child(join_user_id).setValue(circleJoin2)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful())
                                                 {
-                                                    currentReference.child(join_user_id).setValue(circleJoin2)
+                                                    currentReference.child(user.getUid()).setValue(circleJoin1)
                                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                                    Toast.makeText(getApplicationContext(),"ho gya",Toast.LENGTH_LONG).show();
+                                                                   // Toast.makeText(getApplicationContext(),"ho gya",Toast.LENGTH_LONG).show();
                                                                 }
                                                             });
 

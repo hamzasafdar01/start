@@ -21,8 +21,6 @@
     <!---->
 
 
-
-
     <!--ste1 activity-->
     <string name="get_started_button">Get Started</string>
     <string name="already_have_an_account">Already have an account?</string>
@@ -67,6 +65,17 @@
     <string name="change_language">Change Language</string>
     <string name="signout">Sign Out</string>
 
+    <!---->
+
+
+    <!--settings activity-->
+    <string name="change_theme">Change Theme</string>
+    <string name="change_password">Change Password</string>
+
+    <!---->
+    <!--change pasword activity-->
+    <string name="enter_old_password">Enter Old Password</string>
+    <string name="update">Update</string>
     <!---->
 
 </resources>

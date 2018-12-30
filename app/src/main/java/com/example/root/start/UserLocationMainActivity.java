@@ -256,7 +256,10 @@ public class UserLocationMainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_editprofile)
         {
-            Intent myintent = new Intent(UserLocationMainActivity.this,UpdateDetailsActivity.class);
+//            Intent myintent = new Intent(UserLocationMainActivity.this,UpdateDetailsActivity.class);
+//            startActivity(myintent);
+
+            Intent myintent = new Intent(UserLocationMainActivity.this,SettingsActivity.class);
             startActivity(myintent);
 
 
