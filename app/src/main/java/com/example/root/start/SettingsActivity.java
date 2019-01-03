@@ -19,7 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     TextView change;
-    CardView changeLanguage;
+    CardView changeLanguage,changeTheme;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,12 +27,20 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         changeLanguage=findViewById(R.id.change_language);
+       // changeTheme = findViewById(R.id.change_theme);
         changeLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showChangeLanguageDialog();
             }
         });
+
+//        changeTheme.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showThemeDialog();
+//            }
+//        });
     }
 
 
@@ -90,7 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
         String language = preferences.getString("My_Lang","");
         setLocale(language);
     }
-
+///////////////////////////////////////////////////
 
 
     //goto change password activity
@@ -103,9 +111,43 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 
+/////////////change theme process
+
+    public void showThemeDialog()
+    {
+        final String[] listitems = {"Main","Dark","Light"};
+        AlertDialog.Builder mBuilder =  new AlertDialog.Builder(this);
+        mBuilder.setTitle("Choose Theme");
+        mBuilder.setSingleChoiceItems(listitems, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which==0){
+                    setTheme(R.style.AppTheme);
+                    Intent myintent = new Intent(SettingsActivity.this,UserLocationMainActivity.class);
+                    startActivity(myintent);
+                    recreate();
 
 
-
+                }
+                else  if (which==1){
+                    setTheme(R.style.AppTheme2);
+                    //setContentView(R.layout.activity_settings);
+                 Intent myintent = new Intent(SettingsActivity.this,UserLocationMainActivity.class);
+                  startActivity(myintent);
+                   recreate();
+                } else  if (which==2){
+                    setTheme(R.style.AppTheme3);
+                   Intent myintent = new Intent(SettingsActivity.this,UserLocationMainActivity.class);
+                   // setContentView(R.layout.activity_settings);
+                    startActivity(myintent);
+                    recreate();
+                }
+                dialog.dismiss();
+            }
+        });
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
+    }
 
 
 

@@ -23,21 +23,21 @@
 
     <com.goodiebag.pinview.Pinview
         android:id="@+id/pinview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_width="320dp"
+        android:layout_height="53dp"
+
         app:forceKeyboard="true"
         app:hint="X"
         app:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.53"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.028"
+        app:layout_constraintVertical_bias="0.026"
         app:pinHeight="40dp"
         app:pinLength="6"
-        app:pinWidth="40dp">
+        app:pinWidth="35dp">
 
     </com.goodiebag.pinview.Pinview>
 
@@ -46,14 +46,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.04" />
+        app:layout_constraintGuide_begin="16dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.96" />
+        app:layout_constraintGuide_percent="0.95" />
 
     <Button
         android:id="@+id/submit"
@@ -67,7 +67,7 @@
         app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/pinview"
-        app:layout_constraintVertical_bias="0.182" />
+        app:layout_constraintVertical_bias="0.121" />
 
 
 

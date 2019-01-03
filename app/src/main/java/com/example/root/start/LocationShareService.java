@@ -58,15 +58,7 @@ public class LocationShareService extends Service implements LocationListener, G
                 .build();
         //connection current location
         client.connect();
-
-
     }
-
-
-
-
-
-
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -82,39 +74,22 @@ public class LocationShareService extends Service implements LocationListener, G
         }
         LocationServices.FusedLocationApi.requestLocationUpdates(client, request, this);
         //after this we receive our location in onLocationChanged method
-
-
     }
-
-
-
-
-
-
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
     }
-
-
-
-
 
     @Override
     public void onLocationChanged(Location location) {
 
         latLng = new LatLng(location.getLatitude(),location.getLongitude());
         shareLocation();
-
     }
-
-
 
     public void shareLocation()
     {
@@ -122,7 +97,6 @@ public class LocationShareService extends Service implements LocationListener, G
         laat = latLng.latitude;
         lnng = latLng.longitude;
 
-//        databaseReference.child(user.getUid()).child("issharing").setValue("true");
         databaseReference.child(user.getUid()).child("lat").setValue(laat.toString());
         databaseReference.child(user.getUid()).child("lng").setValue(lnng.toString())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -38,12 +38,10 @@ public class JoinedMembersAdapter extends RecyclerView.Adapter<JoinedMembersAdap
         this.c=c;
     }
 
-
     @Override
     public int getItemCount() {
         return namelist.size();
     }
-
 
     @NonNull
     @Override
@@ -103,10 +101,6 @@ public class JoinedMembersAdapter extends RecyclerView.Adapter<JoinedMembersAdap
                     AlertDialog alert = a_builder.create();
                     alert.setTitle("Alert..!!!");
                     alert.show();
-                    //Intent map = new Intent(v.getContext(),UserLocationMainActivity.class);
-                    //map.putExtra("userid",currentUserObj.userId);
-                    //c.startActivity(map);
-
                 }
 
             }
@@ -136,8 +130,6 @@ public class JoinedMembersAdapter extends RecyclerView.Adapter<JoinedMembersAdap
             circleImageView = itemView.findViewById(R.id.circleImageView);
             status = itemView.findViewById(R.id.status);
             itemView.setOnLongClickListener(this);
-
-
         }
 
 
@@ -153,16 +145,7 @@ public class JoinedMembersAdapter extends RecyclerView.Adapter<JoinedMembersAdap
 
         @Override
         public void onClick(View v) {
-//            Toast.makeText(c,"You have clicked this user" ,Toast.LENGTH_SHORT).show();
-//            Log.d("hamza", "onClick: " );
             itemClickListener.onClick(v,getAdapterPosition());
-
-
         }
-
-
-
-
     }
-
 }

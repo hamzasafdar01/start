@@ -22,10 +22,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class JoinCircleActivity extends AppCompatActivity {
     Pinview pinview;
-    DatabaseReference reference,currentReference;
+    DatabaseReference reference,currentReference,dbReference;
     FirebaseAuth auth;
     FirebaseUser user;
     String current_user_id,join_user_id;
+    public String current_user_name;
     DatabaseReference circleReference;
     Button submit;
     @Override
@@ -40,7 +41,8 @@ public class JoinCircleActivity extends AppCompatActivity {
         current_user_id = user.getUid();
 
         reference = FirebaseDatabase.getInstance().getReference().child("Users");
-        currentReference = FirebaseDatabase.getInstance().getReference().child("Users").child(current_user_id);
+        //currentReference = FirebaseDatabase.getInstance().getReference().child("Users").child(current_user_id);
+        currentReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +52,21 @@ public class JoinCircleActivity extends AppCompatActivity {
         });
 
 
+
+
+        dbReference = FirebaseDatabase.getInstance().getReference().child("Users");
+        dbReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                current_user_name = dataSnapshot.child(user.getUid()).child("name").getValue(String.class);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
@@ -67,27 +84,20 @@ public class JoinCircleActivity extends AppCompatActivity {
                            for (DataSnapshot childDss : dataSnapshot.getChildren())
                            {
                                 createUser = childDss.getValue(CreateUser.class);
-                                //may be to write below code outside of the for loop
                                 join_user_id = createUser.userId;
 
 
-//                                circleReference = FirebaseDatabase.getInstance().getReference().child("Users")
-//                                        .child(join_user_id).child("CircleMembers"); //creating node named Circle Members
                                circleReference = FirebaseDatabase.getInstance().getReference().child("Users")
                                         .child(user.getUid()).child("CircleMembers"); //creating node named Circle Members
-//
-//                               currentReference = FirebaseDatabase.getInstance().getReference().child("Users")
-//                                       .child(user.getUid()).child("Joined Circle"); //creating node named joined circle
 
 
-
+                                currentReference.child(join_user_id).child("recentAddedBy").setValue(current_user_name);
                                currentReference = FirebaseDatabase.getInstance().getReference().child("Users")
                                        .child(join_user_id).child("Joined Circle"); //creating node named joined circle
 
                                final CircleJoin circleJoin1 = new CircleJoin(current_user_id);
                                  CircleJoin circleJoin2 = new CircleJoin(join_user_id);
 
-                             //   circleReference.child(user.getUid()).setValue(circleJoin1)
                                circleReference.child(join_user_id).setValue(circleJoin2)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
@@ -98,12 +108,12 @@ public class JoinCircleActivity extends AppCompatActivity {
                                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                                   // Toast.makeText(getApplicationContext(),"ho gya",Toast.LENGTH_LONG).show();
                                                                 }
                                                             });
 
                                                     Toast.makeText(getApplicationContext(),"Successfully joined Circle",Toast.LENGTH_SHORT).show();
                                                     Intent myintent = new Intent(JoinCircleActivity.this,UserLocationMainActivity.class);
+                                                    startActivity(myintent);
                                                 }
                                             }
                                         });

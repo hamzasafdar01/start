@@ -4,58 +4,55 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_joinCircle"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/join_circle" />
+            android:icon="@drawable/join_circle"
+            android:title="@string/add_member" />
         <item
             android:id="@+id/nav_myCircle"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/my_circle"
             android:title="@string/my_circle" />
         <item
             android:id="@+id/nav_joinedCircle"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/joined_circle"
             android:title="@string/joined_circle" />
 
 
+    </group>
+
+    <item android:title="Other">
+    <menu>
+
         <item
             android:id="@+id/nav_inviteMembers"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/invite_members"
             android:title="@string/invite_members" />
 
         <item
             android:id="@+id/nav_shareLocation"
             android:icon="@drawable/ic_menu_share"
-            android:title="@string/share_location" />
+            android:title="@string/send_location" />
 
         <item
             android:id="@+id/nav_editprofile"
-            android:icon="@drawable/ic_menu_share"
-            android:title="@string/my_profile" />
+            android:icon="@drawable/settings"
+            android:title="@string/settings" />
 
-        <item
-            android:id="@+id/nav_language"
-            android:icon="@drawable/ic_menu_share"
-            android:title="@string/change_language" />
+        <!--<item-->
+        <!--android:id="@+id/nav_language"-->
+        <!--android:icon="@drawable/ic_menu_share"-->
+        <!--android:title="@string/change_language" />-->
 
         <item
             android:id="@+id/signOut"
-
+            android:icon="@drawable/logout"
             android:title="@string/signout" />
 
 
 
-    </group>
-
-    <!--<item android:title="Communicate">-->
-    <!--<menu>-->
-
-    <!--<item-->
-    <!--android:id="@+id/nav_send"-->
-    <!--android:icon="@drawable/ic_menu_send"-->
-    <!--android:title="Send" />-->
-    <!--</menu>-->
-    <!--</item>-->
+    </menu>
+    </item>
 
 </menu>
 

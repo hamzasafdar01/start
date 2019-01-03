@@ -34,29 +34,43 @@ public class SignUp extends AppCompatActivity {
 
 
     public void goto_password_activity(View v){
-        dialog.setMessage("Checking Email address");
-        dialog.show();
-        auth.fetchProvidersForEmail(email.getText().toString())
-                .addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<ProviderQueryResult> task) {
-                        if(task.isSuccessful()){
-                            dialog.dismiss();
-                            boolean check  = !task.getResult().getProviders().isEmpty();
-                            if(!check){
-                                //Email dose not exist
-                                Intent myintent = new Intent(SignUp.this,password_Activity.class);
-                                myintent.putExtra("email", email.getText().toString());
-                                startActivity(myintent);
-                                finish();
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(),"Email already exist",Toast.LENGTH_LONG).show();
+        if(!email.getText().toString().equals("")){
+            dialog.setMessage("Checking Email address");
+            dialog.show();
+            auth.fetchProvidersForEmail(email.getText().toString())
+                    .addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<ProviderQueryResult> task) {
+                            if(task.isSuccessful()){
                                 dialog.dismiss();
+                                boolean check  = !task.getResult().getProviders().isEmpty();
+                                if(!check){
+                                    //Email dose not exist
+                                    Intent myintent = new Intent(SignUp.this,password_Activity.class);
+                                    myintent.putExtra("email", email.getText().toString());
+                                    startActivity(myintent);
+                                    finish();
+                                }
+                                else{
+                                    Toast.makeText(getApplicationContext(),"Email already exist",Toast.LENGTH_LONG).show();
+                                    dialog.dismiss();
+                                }
+                            }
+                            else
+                            {
+                                dialog.dismiss();
+                                Toast.makeText(getApplicationContext(),"Enter Valid Email",Toast.LENGTH_LONG).show();
                             }
                         }
-                    }
-                });
+                    });
+
+
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"Enter Email to proceed.",Toast.LENGTH_LONG).show();
+        }
+
+
 
     }
 }

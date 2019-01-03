@@ -49,8 +49,8 @@
     <!---->
 
     <!--join circle activity-->
-    <string name="enter_code">شامل ہونے کیلئے سرکل کوڈ داخل کریں</string>
-    <string name="submit">Submit</string>
+    <string name="enter_code">اپنے دوست کو شامل کرنے کے لئے دائرۂ کار درج کریں</string>
+    <string name="submit">شامل کریں</string>
     <!---->
 
     <!--login-->
@@ -59,12 +59,12 @@
     <!---->
 
     <!--drawer-->
-    <string name="join_circle">سرکل میں شمولیت اختیار کریں</string>
+    <string name="add_member">اراکین شامل کریں</string>
     <string name="joined_circle">سرکل میں شامل</string>
     <string name="my_circle">میرا سرکل</string>
     <string name="invite_members">اراکین کو مدعو کریں</string>
-    <string name="share_location">مقام کا اشتراک کریں</string>
-    <string name="my_profile">میری پروفائل</string>
+    <string name="send_location">مقام بھیجیں</string>
+    <string name="settings">ترتیبات</string>
     <string name="change_language">زبان تبدیل کریں</string>
     <string name="signout">باہر جائیں</string>
 

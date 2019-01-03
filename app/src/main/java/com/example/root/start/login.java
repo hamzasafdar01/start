@@ -64,7 +64,6 @@ public class login extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(),"Email Not varified",Toast.LENGTH_SHORT).show();
                                 }
 
-                                // Toast.makeText(getApplicationContext(),"user Login Successfull",Toast.LENGTH_LONG).show();
                             }
                             else{
                                 dialog.dismiss();
@@ -73,11 +72,7 @@ public class login extends AppCompatActivity {
                         }
                     });
         }
-
-
     }
-
-
 
     public void gotoSignupActivity(View v)
     {

@@ -25,10 +25,8 @@ public class NameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name);
-
         name = findViewById(R.id.name);
         circleImageView = findViewById(R.id.circleImageView);
-
 
         Intent myintent =getIntent();
         if(myintent!=null){

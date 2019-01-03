@@ -79,7 +79,7 @@ public class InviteCodeActivity extends AppCompatActivity {
 
                             user = auth.getCurrentUser();
                             userId = user.getUid();
-                            CreateUser createUser = new CreateUser(name,email,password,code,"false","na","na","na",userId);
+                            CreateUser createUser = new CreateUser(name,email,password,code,"false","na","na","na","na",userId);
                             reference.child(userId).setValue(createUser)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -105,62 +105,9 @@ public class InviteCodeActivity extends AppCompatActivity {
 
 
 
-//
-//    public void uploadImage(){
-//
-//        //save image to firebase database
-//
-//       sr = storageReference.child(userId + ".jpg");
-//        sr.putFile(imageUri)
-//                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                        if (task.isSuccessful())
-//                        {
-//
-//                        // String download_image_path = sr.getDownloadUrl().toString();
-////                            String download_image_path = task.getResult().getMetadata().getContentDisposition();
-//                            String download_image_path = task.getResult().getStorage().getDownloadUrl().toString();
-//
-//                            Log.d("hamza", "onComplete: " + download_image_path);
-//
-////                         String download_image_path = task.getResult().getDownloadUrl().toString();
-//                            reference.child(user.getUid()).child("imageUrl").setValue(download_image_path)
-//                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                        @Override
-//                                        public void onComplete(@NonNull Task<Void> task) {
-//                                            if (task.isSuccessful()){
-//                                                   dialog.dismiss();
-//                                                sendVarificationEmail();
-////                                                                                                Toast.makeText(getApplicationContext(),"User Registered Successfully",Toast.LENGTH_SHORT).show();
-////                                                                                                finish();
-////                                                                                                Intent myintent = new Intent(InviteCodeActivity.this,UserLocationMainActivity.class);
-////                                                                                                startActivity(myintent);
-//                                            }
-//                                            else
-//                                            {
-//                                                dialog.dismiss();
-//                                                Toast.makeText(getApplicationContext(),"User Didnt Registered Successfully",Toast.LENGTH_SHORT).show();
-//                                            }
-//                                        }
-//                                    });
-//
-//                        }
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(getApplicationContext(),"Didnt able to upload image",Toast.LENGTH_SHORT).show();
-//                sendVarificationEmail();
-//            }
-//        });
-//
-//
-//    }
 
-/////testing///
 
-//
+
     public void uploadImage(){
 
         //save image to firebase database
@@ -218,35 +165,9 @@ public class InviteCodeActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
-
-
-
-//               .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                   @Override
-//                   public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                       String download_image_path =taskSnapshot.getStorage().getDownloadUrl().toString();
-//                       Toast.makeText(getApplicationContext(),download_image_path,Toast.LENGTH_LONG).show();
-//                       Log.d("hamza", "onComplete: " + download_image_path);
-//                   }
-//               });
-
     }
 
 
-
-
-
-
-
-
-
-    ///////////////////////////////////////
 
 
     public void sendVarificationEmail()
@@ -259,7 +180,7 @@ public class InviteCodeActivity extends AppCompatActivity {
                         {
                             Toast.makeText(getApplicationContext(),"Email Sent For Varification",Toast.LENGTH_SHORT).show();
 
-                            //finish();
+
                             auth.signOut();
                             finish();
                             Intent myintent = new Intent(InviteCodeActivity.this,step1.class);

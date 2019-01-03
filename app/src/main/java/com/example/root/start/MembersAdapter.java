@@ -44,22 +44,14 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
     public MembersViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view,viewGroup,false);
         MembersViewHolder membersViewHolder = new MembersViewHolder(v,c,namelist);
-
-
-
         return membersViewHolder;
     }
-
-
-
-
 
     @Override
     public void onBindViewHolder(@NonNull MembersViewHolder membersViewHolder, int i) {
 
         final CreateUser currentUserObj = namelist.get(i);
 
-            Log.i("Jaleel", namelist.size() + "  " + currentUserObj);
             membersViewHolder.name_txt.setText(currentUserObj.name);
             Picasso.get().load(currentUserObj.imageUrl).placeholder(R.drawable.ic_person_black_24dp).into(membersViewHolder.circleImageView);
 
@@ -69,11 +61,9 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
                 membersViewHolder.status.setImageResource(R.drawable.greendot);
             }
 
-
             membersViewHolder.itemClickListener = new itemClickListener() {
                 @Override
                 public void onClick(View v, int position) {
-                    Log.d("hamza", "onClick: " + currentUserObj.userId);
                     if(currentUserObj.userId!=null){
 
                         Intent map = new Intent(v.getContext(),UserLocationMainActivity.class);
@@ -81,11 +71,8 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
                         c.startActivity(map);
 
                     }
-
                 }
             };
-
-
     }
 
 
@@ -125,23 +112,12 @@ static class MembersViewHolder extends RecyclerView.ViewHolder implements View.O
 
         @Override
         public boolean onLongClick(View v) {
-
-            Log.d("hamza", "onLongClick: " );
             return true;
         }
 
         @Override
         public void onClick(View v) {
-//            Toast.makeText(c,"You have clicked this user" ,Toast.LENGTH_SHORT).show();
-//            Log.d("hamza", "onClick: " );
             itemClickListener.onClick(v,getAdapterPosition());
-
-
         }
-
-
-
-
     }
-
 }

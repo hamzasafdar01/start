@@ -28,7 +28,6 @@ public class JoinedCircleActivity extends AppCompatActivity {
     CreateUser createUser;
     ArrayList<CreateUser> namelist;
     DatabaseReference reference,userReference;
-    String circlememberid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +38,6 @@ public class JoinedCircleActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
         namelist = new ArrayList<>();
         if(recyclerView!=null) {
-            Log.i("Jaleel","reccyclerfe view is not null");
             layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
             adapter = new JoinedMembersAdapter(namelist, this);
@@ -47,7 +45,6 @@ public class JoinedCircleActivity extends AppCompatActivity {
             recyclerView.setHasFixedSize(true);
         }
 
-        //testing
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -56,41 +53,19 @@ public class JoinedCircleActivity extends AppCompatActivity {
         userReference = FirebaseDatabase.getInstance().getReference().child("Users");
         reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Joined Circle");
 
-        Log.i("Jaleel",reference.getKey());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 namelist.clear();
-                Log.i("Jaleel"," Clearing List....");
-                Log.i("Jaleel"," datasnapshot count "+dataSnapshot.getChildrenCount());
                 if (dataSnapshot.exists())
                 {
-                    Log.i("Jaleel",dataSnapshot.getChildrenCount()+"  ........");
-
-
                     for (DataSnapshot dss: dataSnapshot.getChildren())
                     {
-
-
-
-                        Log.i("Jaleel",dss.getKey());
-                        circlememberid = dss.child("circleMemberId").getKey();
-                        Log.i("Jaleel",circlememberid.toString());
-
                         userReference.child(dss.getKey())
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        Log.i("Jaleel",dataSnapshot.toString());
-                                        Log.d("Jaleel", "onDataChange: Creating user and adding to list");
-
-
                                         namelist.add(dataSnapshot.getValue(CreateUser.class));
-
-
-                                        if (namelist.get(0) == null)
-                                            Log.d("Jaleel", "onDataChange: This is ulln");
-                                        Log.i("Jaleel",namelist.get(0)+" working....."+ dataSnapshot.getValue());
                                         adapter.notifyDataSetChanged();
                                     }
 
@@ -116,8 +91,5 @@ public class JoinedCircleActivity extends AppCompatActivity {
         adapter = new JoinedMembersAdapter(namelist,getApplicationContext());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
-
-
     }
 }

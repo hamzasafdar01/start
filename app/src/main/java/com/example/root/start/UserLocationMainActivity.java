@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -41,6 +42,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -51,6 +54,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class UserLocationMainActivity extends AppCompatActivity
@@ -135,12 +139,19 @@ public class UserLocationMainActivity extends AppCompatActivity
             }
         });
 
+        Intent i = new Intent(UserLocationMainActivity.this,NotificationService.class);
+        //startForegroundService(myintent);
+        startService(i);
+
 
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latLng.latitude,latLng.longitude),12.0f));
+                if (latLng!=null){
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latLng.latitude,latLng.longitude),12.0f));
+                }
+
             }
         });
 
@@ -162,7 +173,7 @@ public class UserLocationMainActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+
 
 
         client = new GoogleApiClient.Builder(this)
@@ -195,16 +206,18 @@ public class UserLocationMainActivity extends AppCompatActivity
         if (id == R.id.sharingOn)
         {
             databaseReference.child(user.getUid()).child("issharing").setValue("true");
-            Intent myintent = new Intent(UserLocationMainActivity.this,LocationShareService.class);
+
+
+        //    Intent myintent = new Intent(UserLocationMainActivity.this,LocationShareService.class);
             //startForegroundService(myintent);
-            startService(myintent);
+          //  startService(myintent);
 
         }
         else if (id == R.id.sharingOff)
         {
-          //  databaseReference.child(user.getUid()).child("issharing").setValue("false");
-            Intent myintent = new Intent(UserLocationMainActivity.this,LocationShareService.class);
-            stopService(myintent);
+            databaseReference.child(user.getUid()).child("issharing").setValue("false");
+         //   Intent myintent = new Intent(UserLocationMainActivity.this,LocationShareService.class);
+           // stopService(myintent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -277,12 +290,6 @@ public class UserLocationMainActivity extends AppCompatActivity
 
         }
 
-        else if(id == R.id.nav_language)
-        {
-                showChangeLanguageDialog();
-        }
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -347,6 +354,27 @@ public class UserLocationMainActivity extends AppCompatActivity
         {
             showFriendLocation();
         }
+
+        Double laat,lnng;
+        laat = latLng.latitude;
+        lnng = latLng.longitude;
+
+//        databaseReference.child(user.getUid()).child("issharing").setValue("true");
+        databaseReference.child(user.getUid()).child("lat").setValue(laat.toString());
+        databaseReference.child(user.getUid()).child("lng").setValue(lnng.toString())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (!task.isSuccessful())
+                        {
+                            Toast.makeText(getApplicationContext(),"Unable to share location",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            //Toast.makeText(getApplicationContext(),"Sharing",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
 
     }
 

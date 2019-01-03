@@ -29,11 +29,9 @@ public class changePasswordActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         old_password = findViewById(R.id.old_password);
-//        new_password = findViewById(R.id.new_pass);
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -63,7 +61,6 @@ public class changePasswordActivity extends AppCompatActivity {
             Intent myintent = new Intent(changePasswordActivity.this,updatePasswordActivity.class);
             startActivity(myintent);
             
-//            new_password.setEnabled(true);
         }
         else
         {
